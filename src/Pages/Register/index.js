@@ -6,44 +6,72 @@ import React from 'react'
 import { ArrowRight } from 'lucide-react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from '../../Component/Header'
-
+import { errorMessage } from '../../Component/Helper';
 const Register = () => {
-          
-   
 
 
 
-  const[name,setName]=React.useState("")
 
-  const[email,setEmail]=React.useState("") 
-  const[pass,setPass]=React.useState("") 
 
-    const register = (event) => {
-        event.preventDefault()
-        console.log('gh');
-    if (name=="" && email=="" && pass=="") {
-      toast.error("all field required",{
-        position:"top-center",
-        theme: "colored",
-        autoClose: 1000
-      })
+  const [name, setName] = React.useState("")
+
+  const [email, setEmail] = React.useState("")
+  const [pass, setPass] = React.useState("")
+
+  const register = (event) => {
+    event.preventDefault()
+    // console.log('gh');
+    if (name == "" && email == "" && pass == "") {
+      // toast.error("all field required", {
+      //   position: "top-center",
+      //   theme: "colored",
+      //   autoClose: 1000
+      // })
+      errorMessage("all field required")
+
+
+
     } else {
-      axios.get(url)
- .then((response) => console.log(response))
- .catch((error) => console.log(error));
+      axios.post("/api/v1/users", {
+        name: name,
+        email: email,
+        password: pass
+      })
+        .then((response) => {
+
+          console.log(response.data, "res")
+          toast.success(response.data.message, {
+            position: "top-center",
+            theme: "colored",
+            autoClose: 1000
+          })
+        })
+
+
+        .catch((error) => {
+          // toast.error(error.response.data.error, {
+          //   position: "top-center",
+          //   theme: "colored",
+          //   autoClose: 1000
+          // })
+
+      errorMessage(error.response.data.error)
+
+          console.log(error.response.data.error, "err")
+        });
     }
 
 
-        
-    }
+
+  }
   return (
 
-   
+
 
     <section>
-      <Header/>
+      <Header />
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
@@ -58,8 +86,8 @@ const Register = () => {
                 Sign In
               </a>
             </p>
-             <form  onSubmit={register}
-             className="mt-8">
+            <form onSubmit={register}
+              className="mt-8">
               <div className="space-y-5">
                 <div>
                   <label htmlFor="name" className="text-base font-medium text-gray-900">
@@ -67,8 +95,8 @@ const Register = () => {
                     Full Name{' '}
                   </label>
                   <div className="mt-2">
-                    <input onChange={(e)=>{
-                     setName(e.target.value);
+                    <input onChange={(e) => {
+                      setName(e.target.value);
                     }}
 
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
@@ -84,7 +112,7 @@ const Register = () => {
                     Email address{' '}
                   </label>
                   <div className="mt-2">
-                    <input onChange={(e)=>{setEmail(e.target.value)}}
+                    <input onChange={(e) => { setEmail(e.target.value) }}
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
                       placeholder="Email"
@@ -97,11 +125,11 @@ const Register = () => {
                     <label htmlFor="password" className="text-base font-medium text-gray-900">
                       {' '}
                       Password{''}
-                      
+
                     </label>
                   </div>
                   <div className="mt-2">
-                    <input onChange={(e)=>{
+                    <input onChange={(e) => {
                       setPass(e.target.value)
                     }}
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
@@ -112,13 +140,13 @@ const Register = () => {
                   </div>
                 </div>
                 <div>
-                  <button 
+                  <button
                     type='submit'
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Create Account
-                     <ArrowRight className="ml-2" size={16} />
-                    
+                    <ArrowRight className="ml-2" size={16} />
+
                   </button>
                 </div>
               </div>
