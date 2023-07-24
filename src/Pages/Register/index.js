@@ -30,9 +30,9 @@ const Register = () => {
         autoClose: 1000
       })
     } else {
-//       axios.get(url)
-//  .then((response) => console.log(response))
-//  .catch((error) => console.log(error));
+      axios.get(url)
+ .then((response) => console.log(response))
+ .catch((error) => console.log(error));
     }
 
 
