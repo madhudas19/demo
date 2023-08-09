@@ -7,10 +7,10 @@ import Register from './Pages/Register/index';
 import { BrowserRouter } from "react-router-dom";
 import { Routes,Route } from "react-router-dom";
 
-
-
+import { ToastContainer, toast } from 'react-toastify';
 function App() {
   return (
+    <>
    <BrowserRouter>
   
    <Routes>
@@ -27,6 +27,7 @@ function App() {
    
    
    </BrowserRouter>
+   <ToastContainer /></>
   );
 }
 

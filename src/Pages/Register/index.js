@@ -8,7 +8,9 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../../Component/Header'
-import { errorMessage } from '../../Component/Helper';
+import Footer from '../../Component/Footer'
+
+import { errorMessage, successMessage } from '../../Component/Helper';
 const Register = () => {
 
 
@@ -22,17 +24,8 @@ const Register = () => {
 
   const register = (event) => {
     event.preventDefault()
-    // console.log('gh');
     if (name == "" && email == "" && pass == "") {
-      // toast.error("all field required", {
-      //   position: "top-center",
-      //   theme: "colored",
-      //   autoClose: 1000
-      // })
       errorMessage("all field required")
-
-
-
     } else {
       axios.post("/api/v1/users", {
         name: name,
@@ -40,36 +33,22 @@ const Register = () => {
         password: pass
       })
         .then((response) => {
-
-          console.log(response.data, "res")
-          toast.success(response.data.message, {
-            position: "top-center",
-            theme: "colored",
-            autoClose: 1000
-          })
+          console.log(response, "res")
+          successMessage(response?.data?.message)
         })
 
-
         .catch((error) => {
-          // toast.error(error.response.data.error, {
-          //   position: "top-center",
-          //   theme: "colored",
-          //   autoClose: 1000
-          // })
-
-      errorMessage(error.response.data.error)
-
-          console.log(error.response.data.error, "err")
+          errorMessage(error.response.data.error)
+          console.log(error.response.data, "err")
         });
     }
-
-
-
   }
+
+
+
+
+
   return (
-
-
-
     <section>
       <Header />
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -196,6 +175,7 @@ const Register = () => {
         </div>
         <ToastContainer />
       </div>
+      <Footer/>
     </section>
   )
 }
