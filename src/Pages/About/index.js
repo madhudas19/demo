@@ -1,10 +1,23 @@
 
-import React from 'react'
+import React,{useEffect} from 'react'
+import {useNavigate} from "react-router-dom"
 import Header from '../../Component/Header'
 import Footer from '../../Component/Footer'
 import { Button } from "@material-tailwind/react";
 const About = () => {
-  return (
+  const navigate =useNavigate()
+  useEffect(()=>{
+    const token =JSON.parse(localStorage.getItem("token")
+   )
+    console.log(token,"tok");
+  
+   if (!token) {
+    navigate("/login")
+   }
+   },[] )
+
+
+ return (
     <section className="px-2 py-10 md:px-0">
        <Header/>
       

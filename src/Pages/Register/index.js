@@ -3,6 +3,7 @@
 
 
 import React from 'react'
+import {useNavigate} from "react-router-dom"
 import { ArrowRight } from 'lucide-react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,7 +13,7 @@ import Footer from '../../Component/Footer'
 
 import { errorMessage, successMessage } from '../../Component/Helper';
 const Register = () => {
-
+  const navigate =useNavigate()
 
 
 
@@ -27,7 +28,7 @@ const Register = () => {
     if (name == "" && email == "" && pass == "") {
       errorMessage("all field required")
     } else {
-      axios.post("/api/v1/users", {
+      axios.post("api/v1/users", {
         name: name,
         email: email,
         password: pass
@@ -35,11 +36,17 @@ const Register = () => {
         .then((response) => {
           console.log(response, "res")
           successMessage(response?.data?.message)
+
+          setTimeout(() => {
+            
+            navigate("/login")
+          }, 1000);
         })
 
         .catch((error) => {
           errorMessage(error.response.data.error)
           console.log(error.response.data, "err")
+
         });
     }
   }

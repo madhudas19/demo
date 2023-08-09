@@ -1,5 +1,6 @@
 
-import React from 'react'
+import React,{useEffect} from 'react'
+import {useNavigate} from "react-router-dom"
 import { ArrowRight } from 'lucide-react'
 import Header from '../../Component/Header'
 import Footer from '../../Component/Footer'
@@ -7,10 +8,20 @@ import  { errorMessage } from '../../Component/Helper'
 import axios from 'axios'
 
 const Login = () => {
-
+  const navigate = useNavigate()
 const [emailadd,setEmailadd]=React.useState("")
 const [pass,setPass]=React.useState("")
+  
+ 
+ useEffect(()=>{
+  const token =JSON.parse(localStorage.getItem("token")
+ )
+  console.log(token,"tok");
 
+ if (token) {
+  navigate("/about")
+ }
+ },[] )
 const onSubmitHandler =(e)=>{
   console.log("god");
    e.preventDefault()
@@ -18,10 +29,21 @@ const onSubmitHandler =(e)=>{
    if (emailadd == "" ) {
     errorMessage("please write valid email address")
    } else {
-    axios.post("/api/v1/users", {
-      emailadd: emailadd,
-       pass: pass
+    axios.post("api/v1/login", {
+      email: emailadd,
+       password: pass
      })
+    .then((res)=>{
+      console.log(res,"fox");
+      const items=res.data.token
+      localStorage.setItem('token', JSON.stringify(items));
+      navigate("/about")
+    })
+ .catch((err)=>{
+    console.log(err,"fac");
+ })
+
+
    }
 
 }
