@@ -1,23 +1,40 @@
 
 import React,{useEffect} from 'react'
-import {useNavigate} from "react-router-dom"
+import {useNavigate,Navigate} from "react-router-dom"
 import Header from '../../Component/Header'
 import Footer from '../../Component/Footer'
 import { Button } from "@material-tailwind/react";
+import { useSelector } from 'react-redux';
+
+
+
+
+
+
+
+
 const About = () => {
   const navigate =useNavigate()
-  useEffect(()=>{
-    const token =JSON.parse(localStorage.getItem("token")
-   )
-    console.log(token,"tok");
+  const {token} = useSelector(state=>state.user)
   
-   if (!token) {
-    navigate("/login")
-   }
-   },[] )
+  // useEffect(()=>{
+  //   const token =JSON.parse(localStorage.getItem("token")
+  //  )
+  //   console.log(token,"tok");
+  
+  //  if (!token) {
+  //   navigate("/login")
+  //  }
+  //  },[] )
+  if (token == "") {
+    return <Navigate to="/login" replace/>;
 
+  }
+//  console.log(user.token,"use");
 
  return (
+  <>
+ 
     <section className="px-2 py-10 md:px-0">
        <Header/>
       
@@ -47,6 +64,8 @@ const About = () => {
       </div>
       <Footer/>
     </section>
+    
+    </>
   )
 }
 export default About

@@ -1,27 +1,32 @@
 
 import React,{useEffect} from 'react'
-import {useNavigate} from "react-router-dom"
-import { ArrowRight } from 'lucide-react'
+import {useNavigate,Navigate} from "react-router-dom"
+import { ArrowRight, Import } from 'lucide-react'
 import Header from '../../Component/Header'
 import Footer from '../../Component/Footer'
 import  { errorMessage } from '../../Component/Helper'
 import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { USER_SET } from '../../ActionType/User'
+import ButtonComponent from '../../Component/ButtonComponent'
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch =useDispatch()
 const [emailadd,setEmailadd]=React.useState("")
 const [pass,setPass]=React.useState("")
   
- 
- useEffect(()=>{
-  const token =JSON.parse(localStorage.getItem("token")
- )
-  console.log(token,"tok");
+const {token} = useSelector(state=>state.user)
 
- if (token) {
-  navigate("/about")
- }
- },[] )
+console.log(token,'token');
+
+const name="som"
+
+
+if (token) {
+  return <Navigate to="/about" replace />;
+    }
 const onSubmitHandler =(e)=>{
   console.log("god");
    e.preventDefault()
@@ -34,9 +39,13 @@ const onSubmitHandler =(e)=>{
        password: pass
      })
     .then((res)=>{
-      console.log(res,"fox");
+      
       const items=res.data.token
       localStorage.setItem('token', JSON.stringify(items));
+      dispatch({
+        type:USER_SET,
+        data:items
+      })
       navigate("/about")
     })
  .catch((err)=>{
@@ -47,6 +56,15 @@ const onSubmitHandler =(e)=>{
    }
 
 }
+  const getaddress=(e)=>{
+    axios.get("login")
+    .then((res)=>{
+      console.log("resp",res);
+    })
+    .catch((error)=>{
+     console.log("err",error);
+    })
+  }
  return (
     <section>
        <Header/>
@@ -67,7 +85,7 @@ const onSubmitHandler =(e)=>{
             </svg>
           </div>
           <h2 className="text-center text-2xl font-bold leading-tight text-black">
-            Sign in to your account
+            Login to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 ">
             Don&apos;t have an account?{' '}
@@ -118,17 +136,21 @@ const onSubmitHandler =(e)=>{
                 </div>
               </div>
               <div>
-                <button
+                {/* <button
                   type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
                   Get started <ArrowRight className="ml-2" size={16} />
-                </button>
+                </button> */}
+                <ButtonComponent madhu={"green"}
+                title={name}
+                sign={<ArrowRight className="ml-2" size={16} />}
+                />
               </div>
             </div>
           </form>
           <div className="mt-3 space-y-3">
-            <button
+            <button onClick={getaddress}
               type="button"
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
             >

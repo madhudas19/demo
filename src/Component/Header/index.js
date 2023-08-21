@@ -1,5 +1,7 @@
 import React from 'react'
 import { Menu, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 const menuItems = [
@@ -23,6 +25,7 @@ const menuItems = [
 
 const Header=()=> {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const {token} = useSelector(state=>state.user)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -50,16 +53,60 @@ const Header=()=> {
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">
-            {menuItems.map((item) => (
+            {/* {menuItems.map((item) => (
               <li key={item.name}>
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   className="text-sm font-semibold text-gray-800 hover:text-gray-900"
                 >
                   {item.name}
-                </a>
+                </Link>
               </li>
-            ))}
+            ))} */}
+            <li>
+                <Link
+                  to="/"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+                  Home
+                </Link>
+
+              </li>
+            <li>
+                <Link
+                  to="/cart"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+                  Cart
+                </Link>
+
+              </li>
+              {token==""?(<>
+            <li>
+                <Link
+                  to="/login"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+               Login
+                </Link>
+              </li>
+            <li>
+                <Link
+                  to="/register"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+               Register
+                </Link>
+              </li>
+              </>):( <li>
+                <Link
+                  to="/about"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+               About
+                </Link>
+              </li>)}
+           
           </ul>
         </div>
         <div className="hidden lg:block">
@@ -109,15 +156,15 @@ const Header=()=> {
                 <div className="mt-6">
                   <nav className="grid gap-y-4">
                     {menuItems.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50"
                       >
                         <span className="ml-3 text-base font-medium text-gray-900">
                           {item.name}
                         </span>
-                      </a>
+                      </Link>
                     ))}
                   </nav>
                 </div>

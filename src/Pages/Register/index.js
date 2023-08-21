@@ -4,14 +4,19 @@
 
 import React from 'react'
 import {useNavigate} from "react-router-dom"
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight,ChevronsRight } from 'lucide-react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../../Component/Header'
 import Footer from '../../Component/Footer'
-
 import { errorMessage, successMessage } from '../../Component/Helper';
+import ButtonComponent from '../../Component/ButtonComponent';
+
+
+
+
+
 const Register = () => {
   const navigate =useNavigate()
 
@@ -61,7 +66,7 @@ const Register = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Sign up</h2>
+            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Register</h2>
             <p className="mt-2 text-base text-gray-600">
               Already have an account?{' '}
               <a
@@ -69,7 +74,7 @@ const Register = () => {
                 title=""
                 className="font-medium text-black transition-all duration-200 hover:underline"
               >
-                Sign In
+                Register
               </a>
             </p>
             <form onSubmit={register}
@@ -126,14 +131,19 @@ const Register = () => {
                   </div>
                 </div>
                 <div>
-                  <button
+                  {/* <button
                     type='submit'
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Create Account
                     <ArrowRight className="ml-2" size={16} />
 
-                  </button>
+                  </button> */}
+                <ButtonComponent madhu={"red"}
+                title={"Register"}
+                sign={<ChevronsRight className="ml-2" size={16} />}
+                
+                />
                 </div>
               </div>
             </form>
@@ -180,7 +190,7 @@ const Register = () => {
             alt=""
           />
         </div>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </div>
       <Footer/>
     </section>
