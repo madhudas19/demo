@@ -106,6 +106,30 @@ const Header=()=> {
                About
                 </Link>
               </li>)}
+              <li>
+                <Link
+                  to="/allusers"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+               AllUsers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/usersaddress"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+               UsersAddress
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/addressdata"
+                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+               AddressData
+                </Link>
+              </li>
            
           </ul>
         </div>

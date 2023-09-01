@@ -10,6 +10,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import store from './Store/store';
 import { Provider } from 'react-redux';
 import Cart from './Pages/Cart';
+import AllUser from './Pages/AllUsers';
+import UsersAddress from './Pages/UsersAddress';
+import AddressData from './Pages/AddrssData';
+
+
+
 
 
 
@@ -30,6 +36,9 @@ function App() {
    <Route path="login"element={<Login/>}/>
    <Route path="register"element={<Register/>}/>
    <Route path="cart"element={<Cart/>}/>
+   <Route path="allusers"element={<AllUser/>}/>
+   <Route path="usersaddress"element={<UsersAddress/>}/>
+   <Route path="addressdata"element={<AddressData/>}/>
 
 
 

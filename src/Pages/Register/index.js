@@ -33,7 +33,7 @@ const Register = () => {
     if (name == "" && email == "" && pass == "") {
       errorMessage("all field required")
     } else {
-      axios.post("api/v1/users", {
+      axios.post("register", {
         name: name,
         email: email,
         password: pass
